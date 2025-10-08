@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-
+import socket
 
 class IPWindow:
     def __init__(self, master):
@@ -37,7 +37,14 @@ class IPWindow:
 
         self.ip_entry = ttk.Entry(right_frame, width=25)
         self.ip_entry.pack(anchor=tk.W)
-        self.ip_entry.insert(0, "xxx.xxx.xxx.xxx")  # Default IP
+        self.ipaddress = self.get_local_ip()
+        self.ip_entry.insert(0, self.ipaddress)  # Default IP
+
+    def get_local_ip(self):
+        hostname = socket.gethostname()
+        ip_address = socket.gethostbyname(hostname)
+        return ip_address
+
 
 
 if __name__ == "__main__":
