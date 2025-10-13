@@ -135,4 +135,5 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = ControlWindow(root)
     station = Station(app)
+    sys = HandleSystemController(app, station)
     root.mainloop()
