@@ -43,8 +43,9 @@ class ControlWindow:
 
         # Top left: IP Entry and Update + Checkbox
         self.ip_entry = tk.Entry(self.top_left)
-        self.get_local_ip
+        self.get_local_ip()
         self.ip_entry.insert(0, self.ipaddress)
+        print("ipaddress = " + self.ipaddress)
         self.ip_entry.pack(pady=(10,5))
 
         self.top_update_var = tk.IntVar()
