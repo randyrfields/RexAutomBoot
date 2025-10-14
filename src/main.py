@@ -78,8 +78,8 @@ class ControlWindow:
             self.bottom_update_cb.config(text=text)
 
     def get_local_ip(self):
-        hostname = socket.gethostname()
-        ipaddress = socket.gethostbyname(hostname)
+        self.hostname = socket.gethostname()
+        self.ipaddress = socket.gethostbyname(self.hostname)
 
 class HandleSystemController:
     
