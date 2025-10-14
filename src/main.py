@@ -2,10 +2,14 @@ import threading
 import asyncio
 import time
 import tkinter as tk
+import socket
 from tkinter import ttk
 from station import Station
 
 class ControlWindow:
+    hostname = 0
+    ipaddress = ""
+
     def __init__(self, root):
         root.title("Rexair Automation Software Updater")
         root.geometry("800x400")
@@ -39,7 +43,8 @@ class ControlWindow:
 
         # Top left: IP Entry and Update + Checkbox
         self.ip_entry = tk.Entry(self.top_left)
-        self.ip_entry.insert(0, "192.168.0.1")
+        self.get_local_ip
+        self.ip_entry.insert(0, self.ipaddress)
         self.ip_entry.pack(pady=(10,5))
 
         self.top_update_var = tk.IntVar()
@@ -70,6 +75,10 @@ class ControlWindow:
             self.top_update_cb.config(text=text)
         elif side == "left_bottom":
             self.bottom_update_cb.config(text=text)
+
+    def get_local_ip(self):
+        hostname = socket.gethostname()
+        ipaddress = socket.gethostbyname(hostname)
 
 class HandleSystemController:
     
