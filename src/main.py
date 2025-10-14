@@ -11,6 +11,7 @@ from TCP import TCPEchoDaemon
 class ControlWindow:
     hostname = 0
     ipaddress = ""
+    testVar = 0
 
     def __init__(self, root):
         root.title("Rexair Automation Software Updater")
@@ -52,7 +53,7 @@ class ControlWindow:
         self.top_update_var = tk.IntVar()
         top_update_frame = tk.Frame(self.top_left)
         top_update_frame.pack(pady=5)
-        self.top_update_btn = tk.Button(top_update_frame, text="Update", width=10)
+        self.top_update_btn = tk.Button(top_update_frame, text="Update", command=self.scUpdate, width=10)
         self.top_update_btn.pack(side=tk.LEFT)
         self.top_update_cb = tk.Checkbutton(top_update_frame, text="Boot", variable=self.top_update_var,
                                             command=lambda: self.toggle_checkbox(self.top_update_var, 0, side="left_top"))
@@ -68,6 +69,10 @@ class ControlWindow:
                                                command=lambda: self.toggle_checkbox(self.bottom_update_var, 0, side="left_bottom"))
         self.bottom_update_cb.pack(side=tk.LEFT, padx=5)
 
+    def scUpdate(self):
+        print("SC Update button click")
+        self.testVar = 1
+
     def toggle_checkbox(self, var, index, side):
         """Update checkbox text based on value"""
         text = "Boot" if var.get() else "Main"
@@ -81,44 +86,6 @@ class ControlWindow:
     def get_local_ip(self):
         self.hostname = socket.gethostname()
         self.ipaddress = socket.gethostbyname(self.hostname)
-
-    def handle_client(conn, addr):
-        print(f"[+] Connected by {addr}")
-        with conn:
-            while True:
-                data = conn.recv(1024)
-                if not data:
-                    break
-                print(f"[{addr}] {data.decode().strip()}")
-                conn.sendall(data)  # Echo the same data back
-        print(f"[-] Disconnected {addr}")
-
-    def tcp_echo_daemon(host=hostname, port=ipaddress):
-        """Daemon function that echoes incoming TCP messages."""
-        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        server.bind((host, port))
-        server.listen()
-
-        print(f"[TCP ECHO DAEMON] Listening on {host}:{port}...")
-
-        try:
-            while True:
-                conn, addr = server.accept()
-                thread = threading.Thread(target=handle_client, args=(conn, addr), daemon=True)
-                thread.start()
-        except KeyboardInterrupt:
-            print("\n[!] Server shutting down...")
-        finally:
-            server.close()
-
-    # Optional: Handle SIGTERM for clean exit
-    def signal_handler(sig, frame):
-        print("\n[!] Caught termination signal. Exiting cleanly...")
-        sys.exit(0)
-
-    signal.signal(signal.SIGINT, signal_handler)
-    signal.signal(signal.SIGTERM, signal_handler)
 
 class HandleSystemController:
     
