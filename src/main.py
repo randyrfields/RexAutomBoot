@@ -1,3 +1,4 @@
+import signal
 import threading
 import asyncio
 import time
@@ -5,6 +6,7 @@ import tkinter as tk
 import socket
 from tkinter import ttk
 from station import Station
+from TCP import TCPEchoDaemon
 
 class ControlWindow:
     hostname = 0
@@ -45,7 +47,6 @@ class ControlWindow:
         self.ip_entry = tk.Entry(self.top_left)
         self.get_local_ip()
         self.ip_entry.insert(0, self.ipaddress)
-        print("ipaddress = " + self.ipaddress)
         self.ip_entry.pack(pady=(10,5))
 
         self.top_update_var = tk.IntVar()
@@ -67,6 +68,8 @@ class ControlWindow:
                                                command=lambda: self.toggle_checkbox(self.bottom_update_var, 0, side="left_bottom"))
         self.bottom_update_cb.pack(side=tk.LEFT, padx=5)
 
+        self.tcp_echo_daemon()
+
     def toggle_checkbox(self, var, index, side):
         """Update checkbox text based on value"""
         text = "Boot" if var.get() else "Main"
@@ -80,6 +83,44 @@ class ControlWindow:
     def get_local_ip(self):
         self.hostname = socket.gethostname()
         self.ipaddress = socket.gethostbyname(self.hostname)
+
+    def handle_client(conn, addr):
+        print(f"[+] Connected by {addr}")
+        with conn:
+            while True:
+                data = conn.recv(1024)
+                if not data:
+                    break
+                print(f"[{addr}] {data.decode().strip()}")
+                conn.sendall(data)  # Echo the same data back
+        print(f"[-] Disconnected {addr}")
+
+    def tcp_echo_daemon(host=hostname, port=ipaddress):
+        """Daemon function that echoes incoming TCP messages."""
+        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        server.bind((host, port))
+        server.listen()
+
+        print(f"[TCP ECHO DAEMON] Listening on {host}:{port}...")
+
+        try:
+            while True:
+                conn, addr = server.accept()
+                thread = threading.Thread(target=handle_client, args=(conn, addr), daemon=True)
+                thread.start()
+        except KeyboardInterrupt:
+            print("\n[!] Server shutting down...")
+        finally:
+            server.close()
+
+    # Optional: Handle SIGTERM for clean exit
+    def signal_handler(sig, frame):
+        print("\n[!] Caught termination signal. Exiting cleanly...")
+        sys.exit(0)
+
+    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGTERM, signal_handler)
 
 class HandleSystemController:
     
@@ -166,4 +207,6 @@ if __name__ == "__main__":
     app = ControlWindow(root)
     station = Station(app)
     sys = HandleSystemController(app, station)
+    server = TCPEchoDaemon(host="192.168.1.248", port=65432)
+    server.start()
     root.mainloop()
