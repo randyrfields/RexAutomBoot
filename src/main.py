@@ -68,8 +68,6 @@ class ControlWindow:
                                                command=lambda: self.toggle_checkbox(self.bottom_update_var, 0, side="left_bottom"))
         self.bottom_update_cb.pack(side=tk.LEFT, padx=5)
 
-        self.tcp_echo_daemon()
-
     def toggle_checkbox(self, var, index, side):
         """Update checkbox text based on value"""
         text = "Boot" if var.get() else "Main"
