@@ -11,6 +11,9 @@ class SysControlCommands(Enum):
     SCANRESULTS = 16
     CALIBRATESTATIONS = 17
     STATIONORDER = 18
+    RECEIVESCAPP = 20
+    EXITBOOTLOADER = 22
+    ERASEFLASH = 23
 
 
 class Station:
@@ -41,23 +44,6 @@ class Station:
             except:
                 result = bytes([0xA7, 0x29, 0x01, 0x05, 0x00]) + bytes([0x00] * 32)
 
-            # self.mainWindow.stationType.insert(x, result[3])
-
-            # if result[2] == 0x00:
-            #     self.nodeStatus[x - 1] = list(result[0:8])
-            # else:
-            #     if result[3] == 0x05:
-            #         self.nodeStatus[x - 1] = list(result[0:8])
-            #     else:
-            #         self.nodeStatus[x - 1] = list(result[0:5])
-            #         # self.mainWindow.TOFData.append(list(result[5:37]))
-            #         rawData = result[5:37]
-            #         if len(rawData) == 32:
-            #             formatString = "<H"
-            #             self.mainWindow.TOFData[x - 1] = [
-            #                 struct.unpack(formatString, rawData[i : i + 2])[0]
-            #                 for i in range(0, 32, 2)
-            #             ]
 
     async def sendStationOrder(self):
 
@@ -140,6 +126,17 @@ class Station:
     async def scanResults(self):
         cmd = SysControlCommands.SCANRESULTS
 
+        try:
+            node = 0x0F
+            result = await self.serial.Poll(node, cmd.value)
+        except:
+            result = bytes([0xFF, 0xFF, 0xFF, 0xFF])
+
+        return result
+    
+    async def sendEraseFlash(self):
+        cmd = SysControlCommands.ERASEFLASH
+        
         try:
             node = 0x0F
             result = await self.serial.Poll(node, cmd.value)

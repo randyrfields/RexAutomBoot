@@ -12,6 +12,7 @@ class ControlWindow:
     hostname = 0
     ipaddress = ""
     testVar = 0
+    syshandle = 0
 
     def __init__(self, root):
         root.title("Rexair Automation Software Updater")
@@ -72,6 +73,7 @@ class ControlWindow:
     def scUpdate(self):
         print("SC Update button click")
         self.testVar = 1
+        self.syshandle.scEraseFlash = True
 
     def toggle_checkbox(self, var, index, side):
         """Update checkbox text based on value"""
@@ -88,7 +90,15 @@ class ControlWindow:
         self.ipaddress = socket.gethostbyname(self.hostname)
 
 class HandleSystemController:
-    
+    stationReset = False
+    stationCalibrate = False
+    stationOrderSend = False
+    diagScanResults = True
+    stationSendSetup = False
+    stationSaveAll = False
+    newScanDataAvail = False
+    scEraseFlash = False
+
     def __init__(self, gui, station):
         self.station = station
         self.gui = gui
@@ -147,31 +157,37 @@ class HandleSystemController:
             #     # print("curButton, NdType=", self.gui.activeNode, nodeType)
             #     # print(" ")
             #     time.sleep(1)
+    
     async def scanTask(self):
-        # if self.stationReset:
-        #     await self.station.resetStations()
-        #     self.stationReset = False
-        # # elif self.stationCalibrate:
-        # #     await self.station.calibrateStations()
-        # #     self.stationCalibrate = False
-        # elif self.stationOrderSend:
-        #     await self.station.sendStationOrder()
-        #     self.stationOrderSend = False
-        # elif self.stationSendSetup:
-        #     await self.station.sendStationSetup()
-        #     self.stationSendSetup = False
-        # elif self.stationSaveAll:
-        #     self.SaveSettings()
-        #     self.stationSaveAll = False
-        # else:
-        await self.station.performScan()
-        self.newScanDataAvail = True
+        if self.stationReset:
+            await self.station.resetStations()
+            self.stationReset = False
+        # elif self.stationCalibrate:
+        #     await self.station.calibrateStations()
+        #     self.stationCalibrate = False
+        elif self.stationOrderSend:
+            await self.station.sendStationOrder()
+            self.stationOrderSend = False
+        elif self.stationSendSetup:
+            await self.station.sendStationSetup()
+            self.stationSendSetup = False
+        elif self.stationSaveAll:
+            self.SaveSettings()
+            self.stationSaveAll = False
+        elif self.scEraseFlash:
+            await self.station.sendEraseFlash()
+            self.scEraseFlash = False
+        else:
+            await self.station.performScan()
+            self.newScanDataAvail = True
+
 
 if __name__ == "__main__":
     root = tk.Tk()
     app = ControlWindow(root)
     station = Station(app)
     sys = HandleSystemController(app, station)
+    app.syshandle = sys
     server = TCPEchoDaemon(host="192.168.1.248", port=65432)
     server.start()
     root.mainloop()
