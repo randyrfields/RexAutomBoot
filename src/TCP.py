@@ -44,17 +44,27 @@ class TCPEchoDaemon:
             print(f"Server error: {e}")
             self.running = False
 
+    def receive_line(self, conn, addr):
+        line_recv = conn.recv(1024)
+        if not line_recv:
+           return None
+        print(f"Received from {addr}: {line_recv.decode().strip()}")
+        print("length = ", len(line_recv))
+        return line_recv
+        
     def handle_client(self, conn, addr):
         """Handle a single client connection."""
         with conn:
             while self.running:
                 try:
-                    data = conn.recv(1024)
-                    if not data:
+                    line = self.receive_line(self, conn, addr)
+                    # data = conn.recv(1024)
+                    # if not data:
+                    #     break
+                    if line != None:
+                        conn.sendall(line)  # Echo back
+                    else:
                         break
-                    print(f"Received from {addr}: {data.decode().strip()}")
-                    print("length = ", len(data))
-                    conn.sendall(data)  # Echo back
                 except ConnectionResetError:
                     break
                 except Exception as e:
