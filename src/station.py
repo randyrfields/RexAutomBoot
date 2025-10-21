@@ -14,6 +14,8 @@ class SysControlCommands(Enum):
     RECEIVESCAPP = 20
     EXITBOOTLOADER = 22
     ERASEFLASH = 23
+    SENDSCPROGRAMDATA = 24
+    SENDTFPROGRAMDATA = 25
 
 
 class Station:
@@ -62,70 +64,10 @@ class Station:
             # print Failed message
             self.mainWindow.terminal.addTextTerminal("System function reset fail.\n")
 
-    async def resetStations(self):
-        cmd = SysControlCommands.RESETSTATIONS
-        quantity = []
 
-        try:
-            node = 0x0F
-            # result = await self.serial.Poll(node, cmd.value)
-            for i in range(7):
-                quantity.append(self.mainWindow.quantity_entry[i].get())
-
-            result = await self.serial.SendCmd(node, cmd.value, quantity)
-        except:
-            result = bytes([0xFF, 0xFF, 0xFF, 0xFF])
-
-        if result[3] == 0xAC:
-            # print Success message
-            self.mainWindow.terminal.addTextTerminal("System function reset success.\n")
-        else:
-            # print Failed message
-            self.mainWindow.terminal.addTextTerminal("System function reset fail.\n")
-
-    async def calibrateStations(self):
-        cmd = SysControlCommands.CALIBRATESTATIONS
-
-        try:
-            node = 0x0F
-            result = await self.serial.Poll(node, cmd.value)
-        except:
-            result = bytes([0xFF, 0xFF, 0xFF, 0xFF])
-
-        if result[3] == 0xAA:
-            # print Success message
-            self.mainWindow.terminal.addTextTerminal(
-                "System function calibrate success.\n"
-            )
-        else:
-            # print Failed message
-            self.mainWindow.terminal.addTextTerminal(
-                "System function calibrate fail.\n"
-            )
-
-    async def sendStationSetup(self):
-        cmd = SysControlCommands.CALIBRATESTATIONS
-
-        try:
-            node = 0x0F
-            result = await self.serial.Poll(node, cmd.value)
-        except:
-            result = bytes([0xFF, 0xFF, 0xFF, 0xFF])
-
-        if result[3] == 0xAA:
-            # print Success message
-            self.mainWindow.terminal.addTextTerminal(
-                "System function calibrate success.\n"
-            )
-        else:
-            # print Failed message
-            self.mainWindow.terminal.addTextTerminal(
-                "System function calibrate fail.\n"
-            )
-
-    async def scanResults(self):
-        cmd = SysControlCommands.SCANRESULTS
-
+    async def sendEraseFlash(self):
+        cmd = SysControlCommands.ERASEFLASH
+        
         try:
             node = 0x0F
             result = await self.serial.Poll(node, cmd.value)
@@ -133,10 +75,11 @@ class Station:
             result = bytes([0xFF, 0xFF, 0xFF, 0xFF])
 
         return result
-    
-    async def sendEraseFlash(self):
-        cmd = SysControlCommands.ERASEFLASH
-        
+
+
+    async def sendSCProgramData(self):
+        cmd = SysControlCommands.SENDSCPROGRAMDATA
+
         try:
             node = 0x0F
             result = await self.serial.Poll(node, cmd.value)

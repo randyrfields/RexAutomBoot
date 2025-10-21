@@ -91,13 +91,11 @@ class ControlWindow:
 
 class HandleSystemController:
     stationReset = False
-    stationCalibrate = False
-    stationOrderSend = False
     diagScanResults = True
     stationSendSetup = False
     stationSaveAll = False
-    newScanDataAvail = False
     scEraseFlash = False
+    scProgramFlash = False
 
     def __init__(self, gui, station):
         self.station = station
@@ -162,12 +160,6 @@ class HandleSystemController:
         if self.stationReset:
             await self.station.resetStations()
             self.stationReset = False
-        # elif self.stationCalibrate:
-        #     await self.station.calibrateStations()
-        #     self.stationCalibrate = False
-        elif self.stationOrderSend:
-            await self.station.sendStationOrder()
-            self.stationOrderSend = False
         elif self.stationSendSetup:
             await self.station.sendStationSetup()
             self.stationSendSetup = False
@@ -177,6 +169,9 @@ class HandleSystemController:
         elif self.scEraseFlash:
             await self.station.sendEraseFlash()
             self.scEraseFlash = False
+        elif self.scProgramFlash:
+            await self.station.programFlash()
+            self.scProgramFlash = False
         else:
             await self.station.performScan()
             self.newScanDataAvail = True

@@ -53,6 +53,7 @@ class TCPEchoDaemon:
                     if not data:
                         break
                     print(f"Received from {addr}: {data.decode().strip()}")
+                    print("length = ", len(data))
                     conn.sendall(data)  # Echo back
                 except ConnectionResetError:
                     break
