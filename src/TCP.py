@@ -57,7 +57,7 @@ class TCPEchoDaemon:
         with conn:
             while self.running:
                 try:
-                    line = self.receive_line(self, conn, addr)
+                    line = self.receive_line(conn, addr)
                     # data = conn.recv(1024)
                     # if not data:
                     #     break
