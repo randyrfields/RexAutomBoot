@@ -65,7 +65,7 @@ class TCPEchoDaemon:
                         linestr = line.decode("utf-8")
                         print("1")
                         decoded = self.decoder.decode_line(linestr)
-                        print(f"2: {decoded["byte_count"]},{decoded["address"]}, {decoded["data"]}")
+                        print(f"2: {decoded['byte_count']},{decoded['address']}, {decoded['data']}")
                         self.decoder.sc_format(decoded.byte_count, decoded.address, decoded.data)
                         print("3")
                         conn.sendall(line)  # Echo back
