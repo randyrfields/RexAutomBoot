@@ -50,7 +50,7 @@ class IntelHexDecoder:
         
         return elements
 
-    def sc_format(self, ):
+    # def sc_format(self, ):
 
 
 # Example usage:
