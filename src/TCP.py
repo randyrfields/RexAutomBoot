@@ -61,10 +61,10 @@ class TCPEchoDaemon:
             while self.running:
                 try:
                     line = self.receive_line(conn, addr)
-                    time.sleep(0.25)
                     if line != None:
-                        # decoded = self.decoder.decode_line(line)
-                        # self.decoder.sc_format(decoded)
+                        linestr = line.decode
+                        decoded = self.decoder.decode_line(linestr)
+                        self.decoder.sc_format(decoded)
                         conn.sendall(line)  # Echo back
                     else:
                         break
