@@ -42,15 +42,15 @@ class IntelHexDecoder:
         if total != 0:
             raise ValueError(f"Checksum error (computed sum = {total:#04x}).")
 
-        return {
-            "byte_count": byte_count,
-            "address": address,
-            "record_type": record_type,
-            "data": data,
-            "checksum": checksum,
-        }
+        elements = {"byte_count": byte_count,
+                    "address": address,
+                    "record_type": record_type,
+                    "data": data,
+                    "checksum": checksum,}
+        
+        return elements
 
-    # def sc_format(self, ):
+    def sc_format(self, ):
 
 
 # Example usage:
