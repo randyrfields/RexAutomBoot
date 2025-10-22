@@ -115,47 +115,6 @@ class HandleSystemController:
             print("BLScan")
             time.sleep(1)
             
-            # if stat == 1:
-            #     if self.newScanDataAvail:
-            #         self.updateIcons()
-            #         self.newScanDataAvail = False
-            #     else:
-            #         continue
-            #     if self.gui.activeNode < 8:
-            #         nodeType = self.station.nodeStatus[self.gui.activeNode][3]
-            #         if nodeType == 0x0A:
-            #             self.gui.showLiveStation()
-            #         else:
-            #             self.gui.clearLiveStation()
-
-            #     else:
-            #         self.gui.clearLiveStation()
-            #         if self.gui.getAutoRestartStatus() == 1:
-            #             print("Auto Restart Sent")
-            #             self.stationReset = True
-            #             time.sleep(1)
-
-            # else:
-            #     if self.gui.activeNode < 8:
-            #         nodeType = self.station.nodeStatus[self.gui.activeNode][3]
-            #         if nodeType == 0x0A:
-            #             self.gui.showLiveStation()
-            #         else:
-            #             self.gui.clearLiveStation()
-
-            #     data = await self.scanDiags()
-            #     # print(chr(27) + "[2J")
-            #     # print("Node:  0  1  2  3  4  5  6  7")
-            #     # print("     ", end=" ")
-            #     # try:
-            #     #     for i in range(3, 11):
-            #     #         print(f"{data[i]:2d}", end=" ")
-            #     # except:
-            #     #     print("Data error")
-            #     # print("curButton, NdType=", self.gui.activeNode, nodeType)
-            #     # print(" ")
-            #     time.sleep(1)
-    
     async def scanTask(self):
         if self.stationReset:
             await self.station.resetStations()

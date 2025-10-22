@@ -1,6 +1,8 @@
 import socket
 import threading
 import sys
+import time
+from   IntelHexDecode import IntelHexDecoder
 
 class TCPEchoDaemon:
     def __init__(self, host="0.0.0.0", port=5000):
@@ -9,6 +11,7 @@ class TCPEchoDaemon:
         self.server_socket = None
         self.running = False
         self.thread = None
+        self.decoder = IntelHexDecoder()
 
     def start(self):
         """Start the daemon in a background thread."""
@@ -58,13 +61,14 @@ class TCPEchoDaemon:
             while self.running:
                 try:
                     line = self.receive_line(conn, addr)
-                    # data = conn.recv(1024)
-                    # if not data:
-                    #     break
+                    time.sleep(1)
                     if line != None:
+                        decoded = self.decoder.decode_line(line)
+                        self.decoder.sc_format(decoded)
                         conn.sendall(line)  # Echo back
                     else:
                         break
+                    
                 except ConnectionResetError:
                     break
                 except Exception as e:
