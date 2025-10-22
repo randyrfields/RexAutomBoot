@@ -50,8 +50,8 @@ class IntelHexDecoder:
             "checksum": checksum,
         }
 
-    def sc_format(self, ):
-        
+    # def sc_format(self, ):
+
 
 # Example usage:
 if __name__ == "__main__":
