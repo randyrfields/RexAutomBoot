@@ -62,9 +62,12 @@ class TCPEchoDaemon:
                 try:
                     line = self.receive_line(conn, addr)
                     if line != None:
-                        linestr = line.decode
+                        linestr = line.decode("utf-8")
+                        print("1'")
                         decoded = self.decoder.decode_line(linestr)
+                        print("2")
                         self.decoder.sc_format(decoded)
+                        print("3")
                         conn.sendall(line)  # Echo back
                     else:
                         break
