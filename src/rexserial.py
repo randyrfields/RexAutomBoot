@@ -104,7 +104,7 @@ class serialPolling:
         print("4=",type(cmd[4]))
         print("5=",type(cmd[5]))
         print(cmd)
-        value = bytes(cmd)
+        # value = bytes(cmd)
         requestStatusPkt = self.PktEncode(cmd)
         # Send packet
         await self.pollWriteController(requestStatusPkt)
