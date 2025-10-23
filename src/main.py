@@ -129,7 +129,7 @@ class HandleSystemController:
             await self.station.sendEraseFlash()
             self.scEraseFlash = False
         elif self.scProgramFlash:
-            await self.station.programFlash()
+            await self.station.scprogramFlash()
             self.scProgramFlash = False
         else:
             await self.station.performScan()
@@ -142,6 +142,6 @@ if __name__ == "__main__":
     station = Station(app)
     sys = HandleSystemController(app, station)
     app.syshandle = sys
-    server = TCPEchoDaemon(host="192.168.1.248", port=65432, stat=station)
+    server = TCPEchoDaemon(host="192.168.1.248", port=65432, scHandle=sys )
     server.start()
     root.mainloop()

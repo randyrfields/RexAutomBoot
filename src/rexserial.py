@@ -10,6 +10,7 @@ timeout = 1  # Timeout in seconds for read operations
 
 
 class serialPolling:
+    scprogramstruct = 0
 
     def __init__(self, port, baud, timeout):
         # Open serial port
@@ -80,7 +81,7 @@ class serialPolling:
 
         return bytes(decoded)
 
-    async def scFormat(self, count, address, data ):
+    async def scProgramFlash(self, count, address, data ):
         cmd = []
         response = []
         
