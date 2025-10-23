@@ -54,8 +54,8 @@ class TCPEchoDaemon:
         line_recv = conn.recv(1024)
         if not line_recv:
            return None
-        print(f"Received from {addr}: {line_recv.decode().strip()}")
-        print("length = ", len(line_recv))
+        # print(f"Received from {addr}: {line_recv.decode().strip()}")
+        # print("length = ", len(line_recv))
         return line_recv
         
     def handle_client(self, conn, addr):
