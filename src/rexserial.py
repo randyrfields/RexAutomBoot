@@ -98,6 +98,7 @@ class serialPolling:
         cmd.insert(4,bytes(intval16[1]))
         cmd.insert(5,bytes(data))
         print("4")
+        print(type(cmd))
         print(cmd)
         value = bytes(cmd)
         requestStatusPkt = self.PktEncode(value)
