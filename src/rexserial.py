@@ -91,12 +91,12 @@ class serialPolling:
         
         adr = 0xA0 | 0x0F
         cmd.append(SysControlCommands.SENDSCPROGRAMDATA.value)
-        cmd.insert(0, adr)
-        cmd.insert(1, 7+count)  # Length = 3
+        cmd.insert(0, bytes(adr))
+        cmd.insert(1, bytes(7+count))  # Length = 3
         intval16 = address.to_bytes(2, 'little')
         cmd.insert(3,bytes(intval16[0]))
         cmd.insert(4,bytes(intval16[1]))
-        cmd.insert(5,data)
+        cmd.insert(5,bytes(data))
         print("4")
         print(cmd)
         value = bytes(cmd)
