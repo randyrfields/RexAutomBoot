@@ -66,7 +66,7 @@ class TCPEchoDaemon:
                         linestr = line.decode("utf-8")
                         decoded = self.decoder.decode_line(linestr)
                         print(f"2: {decoded['byte_count']},{decoded['address']}, {decoded['data']}")
-                        serialPolling.scFormat(decoded.byte_count, decoded.address, decoded.data)
+                        serialPolling.scFormat(decoded["byte_count"], decoded["address"], decoded["data"])
                         print("3")
                         conn.sendall(line)  # Echo back
                     else:
