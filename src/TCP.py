@@ -3,16 +3,17 @@ import threading
 import sys
 import time
 from   IntelHexDecode import IntelHexDecoder
-from   rexserial import serialPolling
+
 
 class TCPEchoDaemon:
-    def __init__(self, host="0.0.0.0", port=5000):
+    def __init__(self, host, port, stat):
         self.host = host
         self.port = port
         self.server_socket = None
         self.running = False
         self.thread = None
         self.decoder = IntelHexDecoder()
+        self.station = stat
 
     def start(self):
         """Start the daemon in a background thread."""
@@ -66,7 +67,7 @@ class TCPEchoDaemon:
                         linestr = line.decode("utf-8")
                         decoded = self.decoder.decode_line(linestr)
                         print(f"2: {decoded['byte_count']},{decoded['address']}, {decoded['data']}")
-                        serialPolling.scFormat(decoded["byte_count"], decoded["address"], decoded["data"])
+                        self.station.serial.scFormat(decoded["byte_count"], decoded["address"], decoded["data"])
                         print("3")
                         conn.sendall(line)  # Echo back
                     else:

@@ -142,6 +142,6 @@ if __name__ == "__main__":
     station = Station(app)
     sys = HandleSystemController(app, station)
     app.syshandle = sys
-    server = TCPEchoDaemon(host="192.168.1.248", port=65432)
+    server = TCPEchoDaemon(host="192.168.1.248", port=65432, stat=station)
     server.start()
     root.mainloop()
