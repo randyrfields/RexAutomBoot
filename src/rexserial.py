@@ -53,8 +53,9 @@ class serialPolling:
 
             block_size = block_end - block_start + 1
             encoded.append(block_size)
-            print("10=",type(data))
-            encoded.extend(bytes(data[block_start:block_end]))
+            print("Data=", data)
+            print("Encoded=",encoded)
+            encoded.extend(data[block_start:block_end])
             block_start = block_end + 1
 
         encoded.append(0)
