@@ -90,7 +90,7 @@ class serialPolling:
         response = []
         
         adr = 0xA0 | 0x0F
-        cmd.append(SysControlCommands.SENDSCPROGRAMDATA.value)
+        cmd.append(bytes(SysControlCommands.SENDSCPROGRAMDATA.value))
         cmd.insert(0,bytes(adr))
         cmd.insert(1, bytes(7+count))  # Length = 3
         intval16 = address.to_bytes(2, 'little')
@@ -105,7 +105,7 @@ class serialPolling:
         print("5=",type(cmd[5]))
         print(cmd)
         value = bytes(cmd)
-        requestStatusPkt = self.PktEncode(value)
+        requestStatusPkt = self.PktEncode(cmd)
         # Send packet
         await self.pollWriteController(requestStatusPkt)
         time.sleep(0.05)
