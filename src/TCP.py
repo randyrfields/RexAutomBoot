@@ -3,6 +3,7 @@ import threading
 import sys
 import time
 from   IntelHexDecode import IntelHexDecoder
+from   rexserial import serialPolling
 
 class TCPEchoDaemon:
     def __init__(self, host="0.0.0.0", port=5000):
@@ -63,10 +64,9 @@ class TCPEchoDaemon:
                     line = self.receive_line(conn, addr)
                     if line != None:
                         linestr = line.decode("utf-8")
-                        print("1")
                         decoded = self.decoder.decode_line(linestr)
                         print(f"2: {decoded['byte_count']},{decoded['address']}, {decoded['data']}")
-                        self.decoder.sc_format(decoded.byte_count, decoded.address, decoded.data)
+                        serialPolling.scFormat(decoded.byte_count, decoded.address, decoded.data)
                         print("3")
                         conn.sendall(line)  # Echo back
                     else:

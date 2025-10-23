@@ -1,3 +1,4 @@
+
 class IntelHexDecoder:
     
     def __init__(self):
@@ -49,8 +50,6 @@ class IntelHexDecoder:
                     "checksum": checksum,}
         
         return elements
-
-    # def sc_format(self, ):
 
 
 # Example usage:

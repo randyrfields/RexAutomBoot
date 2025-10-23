@@ -1,5 +1,6 @@
 import serial
 import time
+from station import SysControlCommands
 
 
 # Configure the serial port
@@ -78,6 +79,27 @@ class serialPolling:
             block_start = block_end
 
         return bytes(decoded)
+
+    async def scFormat(self, count, address, data ):
+        cmd = []
+        response = []
+        
+        adr = 0xA0 | 0x0F
+        cmd.append(SysControlCommands.SENDSCPROGRAMDATA)
+        cmd.insert(0, adr)
+        cmd.insert(1, 7+count)  # Length = 3
+        cmd.insert(3,address)
+        cmd.insert(4,data)
+        print(cmd)
+        value = bytes(cmd)
+        requestStatusPkt = self.PktEncode(value)
+        # Send packet
+        await self.pollWriteController(requestStatusPkt)
+        time.sleep(0.05)
+        response = await self.pollReadController()
+        dcdpkt = self.PktDecode(response)
+
+        return dcdpkt
 
     async def Poll(self, node, command):
         cmd = []
