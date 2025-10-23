@@ -55,7 +55,7 @@ class serialPolling:
             encoded.append(block_size)
             print("Len=", length)
             print("Encoded=",encoded)
-            encoded.extend(bytes(data[block_start:block_end]))
+            encoded.extend(int.from_bytes(bytes(data[block_start:block_end])))
             block_start = block_end + 1
 
         encoded.append(0)
