@@ -6,7 +6,7 @@ from   IntelHexDecode import IntelHexDecoder
 
 
 class TCPEchoDaemon:
-    def __init__(self, host, port, scHandle, station):
+    def __init__(self, host, port, scHandle, stat):
         self.host = host
         self.port = port
         self.server_socket = None
@@ -14,7 +14,7 @@ class TCPEchoDaemon:
         self.thread = None
         self.decoder = IntelHexDecoder()
         self.scHandle = scHandle
-        self.station = station
+        self.station = stat
 
     def start(self):
         """Start the daemon in a background thread."""
