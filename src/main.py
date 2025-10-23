@@ -129,6 +129,7 @@ class HandleSystemController:
             await self.station.sendEraseFlash()
             self.scEraseFlash = False
         elif self.scProgramFlash:
+            print("5")
             await self.station.serial.scprogramFlash()
             self.scProgramFlash = False
         else:
