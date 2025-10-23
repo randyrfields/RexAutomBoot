@@ -91,18 +91,18 @@ class serialPolling:
         
         adr = 0xA0 | 0x0F
         cmd.append(SysControlCommands.SENDSCPROGRAMDATA.value)
-        cmd.insert(0,adr)
-        print(type(cmd[0]))
-        cmd.insert(1, 7+count)  # Length = 3
-        print(type(cmd[1]))
+        cmd.insert(0,bytes(adr))
+        cmd.insert(1, bytes(7+count))  # Length = 3
         intval16 = address.to_bytes(2, 'little')
-        cmd.insert(3,intval16[0])
-        print(type(cmd[3]))
-        cmd.insert(4,intval16[1])
-        print(type(cmd[4]))
+        cmd.insert(3,bytes(intval16[0]))
+        cmd.insert(4,bytes(intval16[1]))
         cmd.insert(5,data)
-        print(type(cmd[5]))
-        print("4")
+        print("0=",type(cmd[0]))
+        print("1=",type(cmd[1]))
+        print("2=",type(cmd[2]))
+        print("3=",type(cmd[3]))
+        print("4=",type(cmd[4]))
+        print("5=",type(cmd[5]))
         print(cmd)
         value = bytes(cmd)
         requestStatusPkt = self.PktEncode(value)
