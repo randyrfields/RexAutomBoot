@@ -90,7 +90,7 @@ class serialPolling:
         response = []
         
         adr = 0xA0 | 0x0F
-        cmd.append(int(SysControlCommands.SENDSCPROGRAMDATA))
+        cmd.append(SysControlCommands.SENDSCPROGRAMDATA.value)
         cmd.insert(0, adr)
         cmd.insert(1, 7+count)  # Length = 3
         cmd.insert(3,address)
