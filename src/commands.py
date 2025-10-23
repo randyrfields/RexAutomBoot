@@ -1,0 +1,16 @@
+from enum import Enum
+
+class SysControlCommands(Enum):
+    NOP = 0
+    GETSTATUS = 1
+    RESETSTATIONS = 15
+    SCANRESULTS = 16
+    CALIBRATESTATIONS = 17
+    STATIONORDER = 18
+    RECEIVESCAPP = 20
+    EXITBOOTLOADER = 22
+    ERASEFLASH = 23
+    SENDSCPROGRAMDATA = 24
+    SENDTFPROGRAMDATA = 25
+
+

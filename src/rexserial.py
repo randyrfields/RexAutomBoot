@@ -1,6 +1,6 @@
 import serial
 import time
-from station import SysControlCommands
+from commands import SysControlCommands
 
 
 # Configure the serial port
