@@ -1,5 +1,6 @@
 import serial
 import time
+import asyncio
 from commands import SysControlCommands
 
 
@@ -55,7 +56,7 @@ class serialPolling:
             encoded.append(block_size)
             print("Len=", length)
             print("Encoded=",encoded)
-            encoded.extend(int.from_bytes(bytes(data[block_start:block_end])))
+            encoded.extend(data[block_start:block_end])
             block_start = block_end + 1
 
         encoded.append(0)
@@ -92,20 +93,17 @@ class serialPolling:
         response = []
         
         adr = 0xA0 | 0x0F
-        cmd.append(bytes(SysControlCommands.SENDSCPROGRAMDATA.value))
-        cmd.insert(0,bytes(adr))
-        cmd.insert(1, bytes(7+count))  # Length = 3
-        intval16 = address.to_bytes(2, 'little')
-        cmd.insert(3,bytes(intval16[0]))
-        cmd.insert(4,bytes(intval16[1]))
-        cmd.insert(5,data)
-        print("0=",type(cmd[0]))
-        print("1=",type(cmd[1]))
-        print("2=",type(cmd[2]))
-        print("3=",type(cmd[3]))
-        print("4=",type(cmd[4]))
-        print("5=",type(cmd[5]))
-        print(cmd)
+        cmd.append(SysControlCommands.SENDSCPROGRAMDATA.value)
+        cmd.insert(0,adr)
+        cmd.insert(1, 7+count)  # Length = 3
+        intval16 = address.to_bytes(4, 'little')
+        cmd.insert(3,intval16[0])
+        cmd.insert(4,intval16[1])
+        cmd.insert(5,intval16[2])
+        cmd.insert(6,intval16[3])
+        for each_value in bytes(data):
+            cmd.append(each_value)
+        # cmd.insert(7,list(data))
         # value = bytes(cmd)
         requestStatusPkt = self.PktEncode(cmd)
         # Send packet
@@ -152,3 +150,17 @@ class serialPolling:
         dcdpkt = self.PktDecode(response)
 
         return dcdpkt
+
+
+def call_prog_flash():
+    """A synchronous function that calls an async function."""
+    asyncio.run(stest.scProgramFlash())
+
+if __name__ == "__main__":
+    stest = serialPolling("/dev/ttyS1", 115200, 1)
+    stest.scprogramstruct = {"byte_count": 10,
+                    "address": 134348800,
+                    "record_type": 0,
+                    "data": [0,1,2,3,4,5,6,7],
+                    "checksum": 0x70,}
+    call_prog_flash()
