@@ -107,11 +107,11 @@ class serialPolling:
         pkt = bytes(programDataPkt)
         print("pkt=", bytes(pkt))
         # Send packet
-        await self.pollWriteController(pkt)
-        time.sleep(0.05)
-        response = await self.pollReadController()
-        print("Response=",response)
-        dcdpkt = self.PktDecode(response)
+        # await self.pollWriteController(pkt)
+        # time.sleep(0.05)
+        # response = await self.pollReadController()
+        # print("Response=",response)
+        # dcdpkt = self.PktDecode(response)
 
         return dcdpkt
 
@@ -162,6 +162,6 @@ if __name__ == "__main__":
     stest.scprogramstruct = {"byte_count": 10,
                     "address": 134348800,
                     "record_type": 0,
-                    "data": [0,1,2,3,4,5,6,7],
+                    "data": [0,1,2,3,65,70,6,7],
                     "checksum": 0x70,}
     call_prog_flash()
