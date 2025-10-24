@@ -66,8 +66,7 @@ class TCPEchoDaemon:
                     line = self.receive_line(conn, addr)
                     print("line=", line)
                     if line != None:
-                        linestr = bytes(line.decode("utf-8"))
-                        print("predecoded=", linestr)
+                        linestr = line.decode("ascii")
                         decoded = self.decoder.decode_line(linestr)
                         print("decoded=", decoded)
                         # print(f"2: {decoded['byte_count']},{decoded['address']}, {decoded['data']}")
