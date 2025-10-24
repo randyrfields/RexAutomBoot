@@ -54,8 +54,6 @@ class serialPolling:
 
             block_size = block_end - block_start + 1
             encoded.append(block_size)
-            print("Len=", length)
-            print("Encoded=",encoded)
             encoded.extend(data[block_start:block_end])
             block_start = block_end + 1
 
@@ -105,11 +103,13 @@ class serialPolling:
             cmd.append(each_value)
         # cmd.insert(7,list(data))
         # value = bytes(cmd)
-        requestStatusPkt = self.PktEncode(cmd)
+        programDataPkt = self.PktEncode(cmd)
+        print(programDataPkt)
         # Send packet
-        await self.pollWriteController(requestStatusPkt)
+        await self.pollWriteController(programDataPkt)
         time.sleep(0.05)
         response = await self.pollReadController()
+        print("Response=",response)
         dcdpkt = self.PktDecode(response)
 
         return dcdpkt
