@@ -104,9 +104,10 @@ class serialPolling:
         # cmd.insert(7,list(data))
         # value = bytes(cmd)
         programDataPkt = self.PktEncode(cmd)
-        print(programDataPkt)
+        pkt = bytes(programDataPkt)
+        print("pkt=", bytes(pkt))
         # Send packet
-        await self.pollWriteController(programDataPkt)
+        await self.pollWriteController(pkt)
         time.sleep(0.05)
         response = await self.pollReadController()
         print("Response=",response)
