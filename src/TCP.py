@@ -66,7 +66,7 @@ class TCPEchoDaemon:
                     line = self.receive_line(conn, addr)
                     print("line=", line)
                     if line != None:
-                        linestr = line.decode("utf-8")
+                        linestr = bytes(line.decode("utf-8"))
                         print("predecoded=", linestr)
                         decoded = self.decoder.decode_line(linestr)
                         print("decoded=", decoded)
