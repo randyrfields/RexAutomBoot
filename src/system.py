@@ -46,5 +46,5 @@ class HandleSystemController:
             await self.station.serial.scProgramFlash()
             self.scProgramFlash = False
         else:
-            await self.station.performScan()
+            # await self.station.performScan()
             self.newScanDataAvail = True
