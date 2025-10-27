@@ -101,8 +101,6 @@ class serialPolling:
         cmd.insert(6,intval16[3])
         for each_value in bytes(data):
             cmd.append(each_value)
-        cmd.insert(7,list(data))
-        value = bytes(cmd)
         programDataPkt = self.PktEncode(cmd)
         pkt = bytes(programDataPkt)
         print("pkt=", bytes(pkt))
