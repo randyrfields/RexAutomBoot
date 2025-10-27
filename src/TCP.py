@@ -68,7 +68,7 @@ class TCPEchoDaemon:
                     if line != None:
                         linestr = line.decode("ascii")
                         decoded = self.decoder.decode_line(linestr)
-                        print("decoded=", decoded.hex())
+                        print("decoded=", decoded.data.hex())
                         # print(f"2: {decoded['byte_count']},{decoded['address']}, {decoded['data']}")
                         # self.station.serial.scFormat(decoded["byte_count"], decoded["address"], decoded["data"])
                         self.station.serial.scprogramstruct = decoded
