@@ -101,17 +101,17 @@ class serialPolling:
         cmd.insert(6,intval16[3])
         for each_value in bytes(data):
             cmd.append(each_value)
-        # cmd.insert(7,list(data))
-        # value = bytes(cmd)
+        cmd.insert(7,list(data))
+        value = bytes(cmd)
         programDataPkt = self.PktEncode(cmd)
         pkt = bytes(programDataPkt)
         print("pkt=", bytes(pkt))
         # Send packet
-        # await self.pollWriteController(pkt)
-        # time.sleep(0.05)
-        # response = await self.pollReadController()
-        # print("Response=",response)
-        # dcdpkt = self.PktDecode(response)
+        await self.pollWriteController(pkt)
+        time.sleep(0.05)
+        response = await self.pollReadController()
+        print("Response=",response)
+        dcdpkt = self.PktDecode(response)
 
         return dcdpkt
 
