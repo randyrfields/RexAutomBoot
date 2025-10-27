@@ -112,7 +112,7 @@ class serialPolling:
         if response is not None:
             dcdpkt = self.PktDecode(response)
         else:
-            response = 0
+            dcdpkt = 1
 
         return dcdpkt
 
