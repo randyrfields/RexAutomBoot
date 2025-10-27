@@ -109,7 +109,10 @@ class serialPolling:
         time.sleep(0.05)
         response = await self.pollReadController()
         print("Response=",response)
-        dcdpkt = self.PktDecode(response)
+        if response is not None:
+            dcdpkt = self.PktDecode(response)
+        else:
+            response = 0
 
         return dcdpkt
 
