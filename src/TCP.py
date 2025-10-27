@@ -68,7 +68,7 @@ class TCPEchoDaemon:
                     if line != None:
                         linestr = line.decode("ascii")
                         decoded = self.decoder.decode_line(linestr)
-                        print("decoded=", decoded)
+                        print("decoded=", decoded.hex())
                         # print(f"2: {decoded['byte_count']},{decoded['address']}, {decoded['data']}")
                         # self.station.serial.scFormat(decoded["byte_count"], decoded["address"], decoded["data"])
                         self.station.serial.scprogramstruct = decoded
@@ -99,16 +99,17 @@ class TCPEchoDaemon:
 
 # Example usage
 if __name__ == "__main__":
-    server = TCPEchoDaemon(host="127.0.0.1", port=5000)
-    server.start()
+    server = TCPEchoDaemon(host="127.0.0.1", port=5000, scHandle=None, stat=None)
+    # server.start()
 
-    try:
-        while True:
-            cmd = input("Type 'quit' to stop: ").strip().lower()
-            if cmd == "quit":
-                break
-    except KeyboardInterrupt:
-        pass
-    finally:
-        server.stop()
-        sys.exit(0)
+    # try:
+    #     while True:
+    #         cmd = input("Type 'quit' to stop: ").strip().lower()
+    #         if cmd == "quit":
+    #             break
+    # except KeyboardInterrupt:
+    #     pass
+    # finally:
+    #     server.stop()
+    #     sys.exit(0)
+    server.decoder.decode_line(":10010000214601360121470136007EFE09D2190140")

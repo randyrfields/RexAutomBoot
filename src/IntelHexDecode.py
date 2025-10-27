@@ -21,7 +21,6 @@ class IntelHexDecoder:
         # Convert hex string to bytes
         try:
             raw_bytes = bytes.fromhex(line)
-            print("rawBytes=", raw_bytes)
         except ValueError:
             raise ValueError("Invalid hex data in line.")
 
