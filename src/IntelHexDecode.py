@@ -9,7 +9,7 @@ class IntelHexDecoder:
         Decode one line of Intel HEX format.
         Example line: ":10010000214601360121470136007EFE09D2190140"
         """
-
+        # line = ":1000000000400220E9410008494100085141000830"
         line = line.strip()
 
         if not line.startswith(':'):
