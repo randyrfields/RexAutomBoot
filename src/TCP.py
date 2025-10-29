@@ -66,7 +66,8 @@ class TCPEchoDaemon:
                         linestr = line.decode("ascii")
                         decoded = self.decoder.decode_line(linestr)
                         self.station.serial.scprogramstruct = decoded
-                        self.scHandle.scProgFlash = True
+                        if decoded["record_type"] == 0:
+                            self.scHandle.scProgFlash = True
                         conn.sendall(line)  # Echo back
                     else:
                         break

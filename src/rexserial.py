@@ -89,7 +89,7 @@ class serialPolling:
         cmd = []
         response = []
         
-        # 0xAF|0x14(cmd)|Cnt|Add0|Add1|Add2|Add3|Data
+        # 0xAF|Cnt+7|0x14(cmd)|Add0|Add1|Add2|Add3|Data
         adr = 0xA0 | 0x0F
         cmd.append(SysControlCommands.RECEIVESCAPP.value)
         cmd.insert(0,adr)
