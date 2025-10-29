@@ -82,7 +82,6 @@ class serialPolling:
 
         return bytes(decoded)
 
-    # async def scProgramFlash(self, count, address, data ):
     async def scProgramFlash(self):
         count = self.scprogramstruct["byte_count"]
         address = self.scprogramstruct["address"]
@@ -90,10 +89,11 @@ class serialPolling:
         cmd = []
         response = []
         
+        # 0xAF|0x14(cmd)|Cnt|Add0|Add1|Add2|Add3|Data
         adr = 0xA0 | 0x0F
         cmd.append(SysControlCommands.RECEIVESCAPP.value)
         cmd.insert(0,adr)
-        cmd.insert(1, 7+count)  # Length = 3
+        cmd.insert(1, 7+count)
         intval16 = address.to_bytes(4, 'little')
         cmd.insert(3,intval16[0])
         cmd.insert(4,intval16[1])

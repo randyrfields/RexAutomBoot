@@ -8,7 +8,7 @@ class HandleSystemController:
     stationSendSetup = False
     stationSaveAll = False
     scEraseFlash = False
-    scProgramFlash = False
+    scProgFlash = False
 
     def __init__(self, gui, station):
         self.station = station
@@ -41,10 +41,10 @@ class HandleSystemController:
         elif self.scEraseFlash:
             await self.station.sendEraseFlash()
             self.scEraseFlash = False
-        elif self.scProgramFlash:
+        elif self.scProgFlash:
             print("5")
             await self.station.serial.scProgramFlash()
-            self.scProgramFlash = False
+            self.scProgFlash = False
         else:
             # await self.station.performScan()
             self.newScanDataAvail = True

@@ -54,8 +54,6 @@ class TCPEchoDaemon:
         line_recv = conn.recv(1024)
         if not line_recv:
            return None
-        # print(f"Received from {addr}: {line_recv.decode().strip()}")
-        # print("length = ", len(line_recv))
         return line_recv
         
     def handle_client(self, conn, addr):
@@ -64,15 +62,11 @@ class TCPEchoDaemon:
             while self.running:
                 try:
                     line = self.receive_line(conn, addr)
-                    print("line=", line)
                     if line != None:
                         linestr = line.decode("ascii")
                         decoded = self.decoder.decode_line(linestr)
-                        print("decoded=", decoded)
-                        # print(f"2: {decoded['byte_count']},{decoded['address']}, {decoded['data']}")
-                        # self.station.serial.scFormat(decoded["byte_count"], decoded["address"], decoded["data"])
                         self.station.serial.scprogramstruct = decoded
-                        self.scHandle.scProgramFlash = True
+                        self.scHandle.scProgFlash = True
                         conn.sendall(line)  # Echo back
                     else:
                         break
