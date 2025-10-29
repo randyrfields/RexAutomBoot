@@ -12,6 +12,7 @@ timeout = 1  # Timeout in seconds for read operations
 
 class serialPolling:
     scprogramstruct = 0
+    scProgFlashResponse = False
 
     def __init__(self, port, baud, timeout):
         # Open serial port
@@ -110,6 +111,7 @@ class serialPolling:
         response = await self.pollReadController()
         print("Response=",response)
         if response is not None:
+            self.scProgFlashResponse = True
             dcdpkt = self.PktDecode(response)
         else:
             dcdpkt = 1
