@@ -68,9 +68,9 @@ class TCPEchoDaemon:
                         self.station.serial.scprogramstruct = decoded
                         if decoded["record_type"] == 0:
                             self.scHandle.scProgFlash = True
-                        self.station.serial.scProgFlashResponse = False
-                        while self.station.serial.scProgFlashResponse == False:
-                            pass
+                            self.station.serial.scProgFlashResponse = False
+                            while self.station.serial.scProgFlashResponse == False:
+                                pass
                         conn.sendall(line)  # Echo back
                     else:
                         break
