@@ -71,6 +71,10 @@ class TCPEchoDaemon:
                             self.station.serial.scProgFlashResponse = False
                             while self.station.serial.scProgFlashResponse == False:
                                 pass
+                        else:
+                            if decoded["record_type"] == 4:
+                                self.station.serial.firstLine = True
+
                         conn.sendall(line)  # Echo back
                     else:
                         break

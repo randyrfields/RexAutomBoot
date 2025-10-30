@@ -13,6 +13,7 @@ timeout = 1  # Timeout in seconds for read operations
 class serialPolling:
     scprogramstruct = 0
     scProgFlashResponse = False
+    firstLine = False
 
     def __init__(self, port, baud, timeout):
         # Open serial port
@@ -96,6 +97,11 @@ class serialPolling:
         cmd.insert(0,adr)
         cmd.insert(1, 7+count)
         intval16 = address.to_bytes(4, 'little')
+        if self.firstLine:
+            self.firstLine = False
+            cmd.insert(2,0x21)
+        else:
+            cmd.insert(2,0x20)
         cmd.insert(3,intval16[0])
         cmd.insert(4,intval16[1])
         cmd.insert(5,intval16[2])
