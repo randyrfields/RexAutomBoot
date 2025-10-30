@@ -66,14 +66,15 @@ class TCPEchoDaemon:
                         linestr = line.decode("ascii")
                         decoded = self.decoder.decode_line(linestr)
                         self.station.serial.scprogramstruct = decoded
-                        if decoded["record_type"] == 0:
-                            self.scHandle.scProgFlash = True
-                            self.station.serial.scProgFlashResponse = False
-                            while self.station.serial.scProgFlashResponse == False:
-                                pass
-                        else:
-                            if decoded["record_type"] == 4:
-                                self.station.serial.firstLine = True
+                        if decoded["byte_count"] != 0:
+                            if decoded["record_type"] == 0:
+                                self.scHandle.scProgFlash = True
+                                self.station.serial.scProgFlashResponse = False
+                                while self.station.serial.scProgFlashResponse == False:
+                                    pass
+                            else:
+                                if decoded["record_type"] == 4:
+                                    self.station.serial.firstLine = True
 
                         conn.sendall(line)  # Echo back
                     else:
