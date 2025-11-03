@@ -9,6 +9,7 @@ class HandleSystemController:
     stationSaveAll = False
     scEraseFlash = False
     scProgFlash = False
+    tfProgFlash = False
 
     def __init__(self, gui, station):
         self.station = station
