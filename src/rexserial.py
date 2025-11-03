@@ -14,6 +14,7 @@ class serialPolling:
     scprogramstruct = 0
     scProgFlashResponse = False
     firstLine = False
+    destination = 0
 
     def __init__(self, port, baud, timeout):
         # Open serial port
@@ -98,9 +99,11 @@ class serialPolling:
         cmd.insert(1, 8+count)
         if self.firstLine:
             self.firstLine = False
-            cmd.insert(3,0x21)
+            dest = 0x21 + destination
+            cmd.insert(3,dest)
         else:
-            cmd.insert(3,0x20)
+            dest = 0x20 + destination
+            cmd.insert(3,dest)
         intval16 = address.to_bytes(4, 'little')
         cmd.insert(4,intval16[0])
         cmd.insert(5,intval16[1])

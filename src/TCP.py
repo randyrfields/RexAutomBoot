@@ -6,6 +6,7 @@ from   IntelHexDecode import IntelHexDecoder
 
 
 class TCPEchoDaemon:
+
     def __init__(self, host, port, scHandle, stat):
         self.host = host
         self.port = port
@@ -62,8 +63,11 @@ class TCPEchoDaemon:
             while self.running:
                 try:
                     line = self.receive_line(conn, addr)
+
                     if line != None:
                         linestr = line.decode("ascii")
+                        self.station.serial.destination = linestr[0]
+                        linestr = linestr[1:]
                         decoded = self.decoder.decode_line(linestr)
                         self.station.serial.scprogramstruct = decoded
                         if decoded["byte_count"] != 0:
