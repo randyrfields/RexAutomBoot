@@ -99,10 +99,10 @@ class serialPolling:
         cmd.insert(1, 8+count)
         if self.firstLine:
             self.firstLine = False
-            dest = 0x21 + destination
+            dest = 0x21 + self.destination
             cmd.insert(3,dest)
         else:
-            dest = 0x20 + destination
+            dest = 0x20 + self.destination
             cmd.insert(3,dest)
         intval16 = address.to_bytes(4, 'little')
         cmd.insert(4,intval16[0])
