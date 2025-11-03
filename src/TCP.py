@@ -67,6 +67,7 @@ class TCPEchoDaemon:
                     if line != None:
                         linestr = line.decode("ascii")
                         self.station.serial.destination = linestr[0]
+                        print("Dest=", self.station.serial.destination)
                         linestr = linestr[1:]
                         decoded = self.decoder.decode_line(linestr)
                         self.station.serial.scprogramstruct = decoded
