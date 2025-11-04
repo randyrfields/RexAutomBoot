@@ -95,13 +95,10 @@ class serialPolling:
         # 0xAF|Cnt+7|0x14(cmd)|Add0|Add1|Add2|Add3|Data
         adr = 0xA0 | 0x0F
         
-        match self.destination:
-            case "2":
-                cmd.append(SysControlCommands.RECEIVESCAPP.value)
-            case "3":
-                cmd.append(SysControlCommands.RECEIVETFAPP.value)
-            case _:
-                return
+        if (self.destination == "2"):
+            cmd.append(SysControlCommands.RECEIVESCAPP.value)
+        else:
+            cmd.append(SysControlCommands.RECEIVETFAPP.value)
     
         cmd.insert(0,adr)
         cmd.insert(1, 8+count)
