@@ -68,9 +68,7 @@ class TCPEchoDaemon:
                         conn.sendall(line)  # Echo back
                         linestr = line.decode("ascii")
                         self.station.serial.destination = linestr[0]
-                        print("Dest=", self.station.serial.destination)
                         linestr = linestr[1:]
-                        print("Line=",linestr)
                         decoded = self.decoder.decode_line(linestr)
                         self.station.serial.scprogramstruct = decoded
                         if decoded["byte_count"] != 0:
