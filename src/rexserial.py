@@ -106,7 +106,6 @@ class serialPolling:
         cmd.insert(1, 8+count)
         if self.firstLine:
             self.firstLine = False
-            dest = 0x21 + self.destination
             cmd.insert(3,0x21)
         else:
             dest = 0x20 + self.destination
