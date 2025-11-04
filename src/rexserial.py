@@ -97,10 +97,10 @@ class serialPolling:
         print("dest=", self.destination)
         if (self.destination == "2"):
             print("2")
-            cmd.append(SysControlCommands.RECEIVESCAPP.value)
+            cmd.append(bytes(SysControlCommands.RECEIVESCAPP.value))
         else:
             print("3")
-            cmd.append(SysControlCommands.RECEIVETFAPP.value)
+            cmd.append(bytes(SysControlCommands.RECEIVETFAPP.value))
     
         cmd.insert(0,adr)
         cmd.insert(1, 8+count)
