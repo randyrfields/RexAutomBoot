@@ -57,7 +57,7 @@ class serialPolling:
 
             block_size = block_end - block_start + 1
             encoded.append(block_size)
-            encoded.extend(data[block_start:block_end])
+            encoded.extend(data[block_start:block_end].encode('ascii'))
             block_start = block_end + 1
 
         encoded.append(0)
