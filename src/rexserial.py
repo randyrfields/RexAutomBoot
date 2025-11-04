@@ -107,15 +107,16 @@ class serialPolling:
         if self.firstLine:
             self.firstLine = False
             dest = 0x21 + self.destination
-            cmd.insert(3,dest)
+            cmd.insert(3,0x21)
         else:
             dest = 0x20 + self.destination
-            cmd.insert(3,dest)
+            cmd.insert(3,0x20)
+        cmd.insert(4,self.destination)
         intval16 = address.to_bytes(4, 'little')
-        cmd.insert(4,intval16[0])
-        cmd.insert(5,intval16[1])
-        cmd.insert(6,intval16[2])
-        cmd.insert(7,intval16[3])
+        cmd.insert(5,intval16[0])
+        cmd.insert(6,intval16[1])
+        cmd.insert(7,intval16[2])
+        cmd.insert(8,intval16[3])
         for each_value in bytes(data):
             cmd.append(each_value)
         programDataPkt = self.PktEncode(cmd)
