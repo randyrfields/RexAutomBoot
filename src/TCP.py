@@ -73,7 +73,7 @@ class TCPEchoDaemon:
                         self.station.serial.scprogramstruct = decoded
                         if decoded["byte_count"] != 0:
                             if decoded["record_type"] == 0:
-                                # self.scHandle.scProgFlash = True
+                                self.scHandle.scProgFlash = True
                                 self.station.serial.scProgFlashResponse = False
                                 while self.station.serial.scProgFlashResponse == False:
                                     pass
