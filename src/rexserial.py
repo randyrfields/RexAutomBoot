@@ -95,7 +95,6 @@ class serialPolling:
         
         # 0xAF|Cnt+7|0x14(cmd)|Add0|Add1|Add2|Add3|Data
         adr = 0xA0 | 0x0F
-        print("dest=", self.destination)
         if (self.destination == "2"):
             print("2")
             cmd.append(SysControlCommands.RECEIVESCAPP.value)
@@ -127,9 +126,9 @@ class serialPolling:
         pkt = bytes(programDataPkt)
         print("pkt=", bytes(pkt))
         # Send packet
-        # await self.pollWriteController(pkt)
-        # time.sleep(0.05)
-        # response = await self.pollReadController()
+        await self.pollWriteController(pkt)
+        time.sleep(0.05)
+        response = await self.pollReadController()
         print("Response=",response)
         if response is not None:
             self.scProgFlashResponse = True
