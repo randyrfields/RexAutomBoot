@@ -65,6 +65,7 @@ class TCPEchoDaemon:
                     line = self.receive_line(conn, addr)
 
                     if line != None:
+                        conn.sendall(line)  # Echo back
                         linestr = line.decode("ascii")
                         self.station.serial.destination = linestr[0]
                         print("Dest=", self.station.serial.destination)
@@ -82,7 +83,6 @@ class TCPEchoDaemon:
                                 if decoded["record_type"] == 4:
                                     self.station.serial.firstLine = True
 
-                        conn.sendall(line)  # Echo back
                     else:
                         break
                     
