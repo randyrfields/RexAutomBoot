@@ -14,6 +14,7 @@ class serialPolling:
     scprogramstruct = 0
     scProgFlashResponse = False
     firstLine = False
+    lastLine = False
     destination = 0
 
     def __init__(self, port, baud, timeout):
@@ -93,7 +94,7 @@ class serialPolling:
         cmd = []
         response = []
         
-        # 0xAF|Cnt+7|0x14(cmd)|Add0|Add1|Add2|Add3|Data
+        # 0xAF|Cnt+9|0x1x(cmd)|LINE|DEST|Add0|Add1|Add2|Add3|Data
         adr = 0xA0 | 0x0F
         if (self.destination == "2"):
             print("2")
@@ -107,6 +108,9 @@ class serialPolling:
         if self.firstLine:
             self.firstLine = False
             cmd.insert(3,0x21)
+        elif self.lastLine:
+            self.lastLine = False
+            cmd.insert(3,0x22)
         else:
             cmd.insert(3,0x20)
         

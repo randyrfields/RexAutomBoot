@@ -39,7 +39,7 @@ class TCPEchoDaemon:
 
                 while self.running:
                     try:
-                        s.settimeout(1.0)
+                        s.settimeout(0.2)
                         conn, addr = s.accept()
                     except socket.timeout:
                         continue
@@ -77,9 +77,12 @@ class TCPEchoDaemon:
                                 self.station.serial.scProgFlashResponse = False
                                 while self.station.serial.scProgFlashResponse == False:
                                     pass
-                            else:
-                                if decoded["record_type"] == 4:
-                                    self.station.serial.firstLine = True
+                            elif decoded["record_type"] == 4:
+                                self.station.serial.firstLine = True
+                            elif decoded["record_type"] == 5:
+                                pass
+                            elif decoded["record_type"] == 1:
+                                self.station.serial.lastline = True
 
                     else:
                         break
