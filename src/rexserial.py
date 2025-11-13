@@ -131,7 +131,7 @@ class serialPolling:
         print("pkt=", bytes(pkt))
         # Send packet
         await self.pollWriteController(pkt)
-        time.sleep(0.01)
+        time.sleep(0.05)
         response = await self.pollReadController()
         print("Response=",response)
         if response is not None:
