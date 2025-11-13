@@ -27,7 +27,7 @@ class HandleSystemController:
 
             await self.scanTask()
             # print("BLScan")
-            time.sleep(.05)
+            time.sleep(.01)
             
     async def scanTask(self):
         if self.stationReset:

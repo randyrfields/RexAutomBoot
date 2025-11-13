@@ -131,7 +131,7 @@ class serialPolling:
         print("pkt=", bytes(pkt))
         # Send packet
         await self.pollWriteController(pkt)
-        time.sleep(0.05)
+        time.sleep(0.01)
         response = await self.pollReadController()
         print("Response=",response)
         if response is not None:
@@ -153,7 +153,7 @@ class serialPolling:
         requestStatusPkt = self.PktEncode(value)
         # Send packet
         await self.pollWriteController(requestStatusPkt)
-        time.sleep(0.05)
+        time.sleep(0.01)
         response = await self.pollReadController()
         dcdpkt = self.PktDecode(response)
 
@@ -173,7 +173,7 @@ class serialPolling:
         requestStatusPkt = self.PktEncode(value)
         # Send packet
         await self.pollWriteController(requestStatusPkt)
-        time.sleep(0.05)
+        time.sleep(0.01)
         response = await self.pollReadController()
         dcdpkt = self.PktDecode(response)
 
