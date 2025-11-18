@@ -1,5 +1,6 @@
 import tkinter as tk
 import socket
+import subprocess
 from tkinter import ttk
 from station import Station
 from TCP import TCPEchoDaemon
@@ -10,6 +11,8 @@ class ControlWindow:
     ipaddress = ""
     testVar = 0
     syshandle = 0
+    
+    script_path = "/opt/RexAutomGUI/src/main.py"
 
     def __init__(self, root):
         root.title("Rexair Automation Software Updater")
@@ -56,6 +59,8 @@ class ControlWindow:
         self.top_update_cb = tk.Checkbutton(top_update_frame, text="Boot", variable=self.top_update_var,
                                             command=lambda: self.toggle_checkbox(self.top_update_var, 0, side="left_top"))
         self.top_update_cb.pack(side=tk.LEFT, padx=5)
+        self.top_start_main_btn = tk.Button(top_update_frame, text="Main", command=self.startMain, width=10)
+        self.top_start_main_btn.pack(side=tk.LEFT)
 
         # Bottom left: Update + Checkbox
         self.bottom_update_var = tk.IntVar()
@@ -71,6 +76,9 @@ class ControlWindow:
         print("SC Update button click")
         self.testVar = 1
         self.syshandle.scEraseFlash = True
+
+    def startMain(self):
+        subprocess.call(["python3", self.script_path, "arg1", "arg2"]) 
 
     def toggle_checkbox(self, var, index, side):
         """Update checkbox text based on value"""
