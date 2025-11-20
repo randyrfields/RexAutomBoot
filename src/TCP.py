@@ -85,7 +85,7 @@ class TCPEchoDaemon:
                                 elif decoded["record_type"] == 1:
                                     self.station.serial.lastline = True
                         else:
-                            self.scSendCommand = True
+                            self.scHandle.scSendCommand = True
                     else:
                         break
                     
