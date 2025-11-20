@@ -149,7 +149,7 @@ class serialPolling:
         # 0xAF|3|0x1x(cmd)
         if (self.destination == "A"):
             print("A")
-            cmd.append("A")
+            cmd.append(0x41)
         else:
             print("x")
     
