@@ -9,6 +9,7 @@ class HandleSystemController:
     stationSaveAll = False
     scEraseFlash = False
     scProgFlash = False
+    scSendCommand = False
     tfProgFlash = False
 
     def __init__(self, gui, station):
@@ -47,6 +48,9 @@ class HandleSystemController:
             self.scProgFlash = False
         elif self.tfProgFlash:
             self.tfProgFlash = False
+        elif self.scHandle.scSendCommand:
+            self.scHandle.scSendCommand = False
+            await self.station.serial.scSendCmd()
         else:
             # await self.station.performScan()
             self.newScanDataAvail = True

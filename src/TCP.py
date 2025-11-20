@@ -69,21 +69,23 @@ class TCPEchoDaemon:
                         linestr = line.decode("ascii")
                         self.station.serial.destination = linestr[0]
                         linestr = linestr[1:]
-                        decoded = self.decoder.decode_line(linestr)
-                        self.station.serial.scprogramstruct = decoded
-                        if decoded["byte_count"] != 0:
-                            if decoded["record_type"] == 0:
-                                self.scHandle.scProgFlash = True
-                                self.station.serial.scProgFlashResponse = False
-                                while self.station.serial.scProgFlashResponse == False:
+                        if self.station.serial.destination < "4":
+                            decoded = self.decoder.decode_line(linestr)
+                            self.station.serial.scprogramstruct = decoded
+                            if decoded["byte_count"] != 0:
+                                if decoded["record_type"] == 0:
+                                    self.scHandle.scProgFlash = True
+                                    self.station.serial.scProgFlashResponse = False
+                                    while self.station.serial.scProgFlashResponse == False:
+                                        pass
+                                elif decoded["record_type"] == 4:
+                                    self.station.serial.firstLine = True
+                                elif decoded["record_type"] == 5:
                                     pass
-                            elif decoded["record_type"] == 4:
-                                self.station.serial.firstLine = True
-                            elif decoded["record_type"] == 5:
-                                pass
-                            elif decoded["record_type"] == 1:
-                                self.station.serial.lastline = True
-
+                                elif decoded["record_type"] == 1:
+                                    self.station.serial.lastline = True
+                        else:
+                            self.scHandle.scSendCommand = True
                     else:
                         break
                     

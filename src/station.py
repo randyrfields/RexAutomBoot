@@ -27,10 +27,10 @@ class Station:
             cmd = SysControlCommands.GETSTATUS
 
             try:
-                result = await self.serial.Poll(x, cmd.value)
+                newscandata = await self.serial.Poll(x, cmd.value)
                 print("Scan")
             except:
-                result = bytes([0xA7, 0x29, 0x01, 0x05, 0x00]) + bytes([0x00] * 32)
+                newscandata = bytes([0xA7, 0x29, 0x01, 0x05, 0x00]) + bytes([0x00] * 32)
 
 
     async def sendStationOrder(self):

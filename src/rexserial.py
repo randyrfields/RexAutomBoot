@@ -13,6 +13,7 @@ timeout = 1  # Timeout in seconds for read operations
 class serialPolling:
     scprogramstruct = 0
     scProgFlashResponse = False
+    scSendCMDResponse = False
     firstLine = False
     lastLine = False
     destination = 0
@@ -141,6 +142,38 @@ class serialPolling:
             dcdpkt = 1
 
         return dcdpkt
+
+    async def scSendCmd(self):
+        cmd = []
+        response = []
+        # 0xAF|3|0x1x(cmd)
+        if (self.destination == "A"):
+            print("A")
+            cmd.append("A")
+        else:
+            print("x")
+    
+        adr = 0xA0 | 0x0F
+        cmd.insert(0,adr)
+        cmd.insert(1, 3)
+
+        DataPkt = self.PktEncode(cmd)
+        pkt = bytes(DataPkt)
+        print("pkt=", bytes(pkt))
+
+        # Send packet
+        await self.pollWriteController(pkt)
+        time.sleep(0.05)
+        response = await self.pollReadController()
+        print("Response=",response)
+        if response is not None:
+            self.scSendCMDResponse = True
+            dcdpkt = self.PktDecode(response)
+        else:
+            dcdpkt = 1
+
+        return dcdpkt
+
 
     async def Poll(self, node, command):
         cmd = []
