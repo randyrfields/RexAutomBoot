@@ -17,6 +17,7 @@ class serialPolling:
     firstLine = False
     lastLine = False
     destination = 0
+    cmdstr = ""
 
     def __init__(self, port, baud, timeout):
         # Open serial port
@@ -149,13 +150,19 @@ class serialPolling:
         # 0xAF|3|0x1x(cmd)
         if (self.destination == "A"):
             print("A")
+            cmdlen = 3
             cmd.append(0x41)
+        elif (self.destination == "B"):
+            print("B")
+            cmdlen = 7
+            cmd.append(0x42)
+            cmd.append(self.cmdstr)
         else:
             print("x")
     
         adr = 0xA0 | 0x0F
         cmd.insert(0,adr)
-        cmd.insert(1, 3)
+        cmd.insert(1, cmdlen)
 
         DataPkt = self.PktEncode(cmd)
         pkt = bytes(DataPkt)
