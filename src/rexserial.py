@@ -157,7 +157,8 @@ class serialPolling:
             cmdlen = 7
             cmd.append(0x42)
             int_list = [ord(character) for character in self.cmdstr]
-            cmd.append(int_list)
+            cmd = cmd + int_list
+            # cmd.append(int_list)
         else:
             print("x")
     
