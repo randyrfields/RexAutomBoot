@@ -86,6 +86,7 @@ class TCPEchoDaemon:
                                 print("-----Last Line-----")
                                 self.scHandle.scProgFlash = True
                                 self.station.serial.lastline = True
+                                self.station.serial.firstLine = False
                                 self.station.serial.scProgFlashResponse = False
                                 while self.station.serial.scProgFlashResponse == False:
                                     pass
