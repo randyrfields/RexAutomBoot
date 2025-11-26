@@ -112,6 +112,7 @@ class serialPolling:
             cmd.insert(3,0x21)
         elif self.lastLine:
             self.lastLine = False
+            print("LastLineCmd")
             cmd.insert(3,0x22)
         else:
             cmd.insert(3,0x20)
