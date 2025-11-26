@@ -83,6 +83,7 @@ class TCPEchoDaemon:
                                 elif decoded["record_type"] == 5:
                                     pass
                                 elif decoded["record_type"] == 1:
+                                    print("-----Last Line-----")
                                     self.scHandle.scProgFlash = True
                                     self.station.serial.lastline = True
                                     self.station.serial.scProgFlashResponse = False
