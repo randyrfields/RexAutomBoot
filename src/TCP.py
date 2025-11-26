@@ -82,13 +82,13 @@ class TCPEchoDaemon:
                                     self.station.serial.firstLine = True
                                 elif decoded["record_type"] == 5:
                                     pass
-                                elif decoded["record_type"] == 1:
-                                    print("-----Last Line-----")
-                                    self.scHandle.scProgFlash = True
-                                    self.station.serial.lastline = True
-                                    self.station.serial.scProgFlashResponse = False
-                                    while self.station.serial.scProgFlashResponse == False:
-                                        pass
+                            elif decoded["record_type"] == 1:
+                                print("-----Last Line-----")
+                                self.scHandle.scProgFlash = True
+                                self.station.serial.lastline = True
+                                self.station.serial.scProgFlashResponse = False
+                                while self.station.serial.scProgFlashResponse == False:
+                                    pass
                         else:
                             self.station.serial.cmdstr = linestr
                             self.scHandle.scSendCommand = True
