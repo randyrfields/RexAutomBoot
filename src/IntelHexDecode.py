@@ -48,7 +48,7 @@ class IntelHexDecoder:
                     "record_type": record_type,
                     "data": data,
                     "checksum": checksum,}
-        # print("Elem=", elements)
+        print("Elem=", elements)
         return elements
 
 
