@@ -160,6 +160,10 @@ class serialPolling:
             int_list = [ord(character) for character in self.cmdstr]
             cmd = cmd + int_list
             # cmd.append(int_list)
+        elif (self.destination == "C"):
+            print("C")
+            cmdlen = 3
+            cmd.append(0x43)
         else:
             print("x")
     
