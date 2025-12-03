@@ -164,6 +164,14 @@ class serialPolling:
             print("C")
             cmdlen = 3
             cmd.append(0x43)
+        elif (self.destination == "D"):
+            print("D")
+            cmdlen = 3
+            cmd.append(0x44)
+        elif (self.destination == "E"):
+            print("E")
+            cmdlen = 3
+            cmd.append(0x45)
         else:
             print("x")
     
