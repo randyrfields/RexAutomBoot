@@ -107,6 +107,6 @@ if __name__ == "__main__":
     sysv = HandleSystemController(app, station)
     app.syshandle = sysv
     app.get_local_ip()
-    server = TCPEchoDaemon( host=app.ipaddress, port=65432, scHandle=sysv, stat=station )
-    server.start()
+    # server = TCPEchoDaemon( host=app.ipaddress, port=65432, scHandle=sysv, stat=station )
+    # server.start()
     root.mainloop()
