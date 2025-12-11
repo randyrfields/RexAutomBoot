@@ -30,6 +30,7 @@ class HandleSystemController:
             # print("BLScan")
             time.sleep(.01)
             if self.gui.appStop:
+                self.gui.appStop = False
                 break
             
     async def scanTask(self):

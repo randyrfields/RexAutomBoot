@@ -82,6 +82,8 @@ class ControlWindow:
     def startMain(self):
         subprocess.call(["python3", self.script_path, "arg1", "arg2"])
         self.appStop = True
+        while self.appStop:
+            pass
         sys.exit(0)
 
     def toggle_checkbox(self, var, index, side):
