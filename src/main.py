@@ -82,8 +82,8 @@ class ControlWindow:
     def startMain(self):
         subprocess.call(["python3", self.script_path, "arg1", "arg2"])
         self.appStop = True
-        while self.appStop:
-            pass
+        # while self.appStop:
+        #     pass
         sys.exit(0)
 
     def toggle_checkbox(self, var, index, side):
@@ -103,10 +103,10 @@ class ControlWindow:
 if __name__ == "__main__":
     root = tk.Tk()
     app = ControlWindow(root)
-    station = Station(app)
-    sysv = HandleSystemController(app, station)
-    app.syshandle = sysv
-    app.get_local_ip()
+    # station = Station(app)
+    # sysv = HandleSystemController(app, station)
+    # app.syshandle = sysv
+    # app.get_local_ip()
     # server = TCPEchoDaemon( host=app.ipaddress, port=65432, scHandle=sysv, stat=station )
     # server.start()
     root.mainloop()
