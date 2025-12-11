@@ -78,7 +78,8 @@ class ControlWindow:
         self.syshandle.scEraseFlash = True
 
     def startMain(self):
-        subprocess.call(["python3", self.script_path, "arg1", "arg2"]) 
+        subprocess.call(["python3", self.script_path, "arg1", "arg2"])
+        sys.exit(0)
 
     def toggle_checkbox(self, var, index, side):
         """Update checkbox text based on value"""
@@ -98,10 +99,9 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = ControlWindow(root)
     station = Station(app)
-    sys = HandleSystemController(app, station)
-    app.syshandle = sys
+    sysv = HandleSystemController(app, station)
+    app.syshandle = sysv
     app.get_local_ip()
-    server = TCPEchoDaemon( app.ipaddress, port=65432, scHandle=sys, stat=station )
-    # server = TCPEchoDaemon(host="192.168.1.248", port=65432, scHandle=sys, stat=station )
+    server = TCPEchoDaemon( host=app.ipaddress, port=65432, scHandle=sysv, stat=station )
     server.start()
     root.mainloop()
