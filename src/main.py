@@ -12,6 +12,7 @@ class ControlWindow:
     ipaddress = ""
     testVar = 0
     syshandle = 0
+    appStop = False
     
     script_path = "/opt/RexAutomGUI/src/main.py"
 
@@ -80,6 +81,7 @@ class ControlWindow:
 
     def startMain(self):
         subprocess.call(["python3", self.script_path, "arg1", "arg2"])
+        self.appStop = True
         sys.exit(0)
 
     def toggle_checkbox(self, var, index, side):

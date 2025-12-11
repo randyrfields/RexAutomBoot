@@ -21,14 +21,16 @@ class HandleSystemController:
         mainThread.start()
     
     async def mainTask(self):
-
         stat = 1
+        self.gui.appStop = False
         # self.gui.showStation(7)
         while True:
 
             await self.scanTask()
             # print("BLScan")
             time.sleep(.01)
+            if self.gui.appStop:
+                break
             
     async def scanTask(self):
         if self.stationReset:
