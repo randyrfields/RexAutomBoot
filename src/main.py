@@ -1,6 +1,7 @@
 import tkinter as tk
 import socket
 import subprocess
+import sys
 from tkinter import ttk
 from station import Station
 from TCP import TCPEchoDaemon
