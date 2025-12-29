@@ -103,10 +103,10 @@ class ControlWindow:
 if __name__ == "__main__":
     root = tk.Tk()
     app = ControlWindow(root)
-    # station = Station(app)
-    # sysv = HandleSystemController(app, station)
-    # app.syshandle = sysv
-    # app.get_local_ip()
-    # server = TCPEchoDaemon( host=app.ipaddress, port=65432, scHandle=sysv, stat=station )
-    # server.start()
+    station = Station(app)
+    sysv = HandleSystemController(app, station)
+    app.syshandle = sysv
+    app.get_local_ip()
+    server = TCPEchoDaemon( host=app.ipaddress, port=65432, scHandle=sysv, stat=station )
+    server.start()
     root.mainloop()
