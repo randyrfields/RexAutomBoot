@@ -63,10 +63,10 @@ class TCPEchoDaemon:
             while self.running:
                 try:
                     line = self.receive_line(conn, addr)
-
                     if line != None:
-                        conn.sendall(line)  # Echo back
                         linestr = line.decode("ascii")
+                        if linestr[0] != "F":
+                            conn.sendall(line)  # Echo back
                         self.station.serial.destination = linestr[0]
                         linestr = linestr[1:]
                         if self.station.serial.destination < "4":
@@ -94,6 +94,10 @@ class TCPEchoDaemon:
                             self.station.serial.cmdstr = linestr
                             self.scHandle.scSendCommand = True
                     else:
+                        # if scSendCMDResponse:
+                        #     conn.sendall(self.station.response)
+                        pass
+
                         break
                     
                 except ConnectionResetError:

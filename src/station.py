@@ -7,6 +7,7 @@ from commands import SysControlCommands
 class Station:
 
     nodeStatus = []
+    response = ""
 
     def __init__(self, mainWindow):
 

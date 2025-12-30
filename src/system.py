@@ -52,8 +52,9 @@ class HandleSystemController:
         elif self.tfProgFlash:
             self.tfProgFlash = False
         elif self.scSendCommand:
-            await self.station.serial.scSendCmd()
+            await self.station.response = self.station.serial.scSendCmd()
             self.scSendCommand = False
+            
         else:
             # await self.station.performScan()
             self.newScanDataAvail = True

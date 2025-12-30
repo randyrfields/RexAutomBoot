@@ -172,6 +172,11 @@ class serialPolling:
             print("E")
             cmdlen = 3
             cmd.append(0x45)
+        elif (self.destination == "F"):
+            print("F")
+            cmdlen = 3
+            cmd.append(0x46)
+            self.scSendCMDResponse = True
         else:
             print("x")
     
@@ -189,7 +194,6 @@ class serialPolling:
         response = await self.pollReadController()
         print("Response=",response)
         if response is not None:
-            self.scSendCMDResponse = True
             dcdpkt = self.PktDecode(response)
         else:
             dcdpkt = 1
