@@ -65,7 +65,7 @@ class TCPEchoDaemon:
                     line = self.receive_line(conn, addr)
                     if line != None:
                         linestr = line.decode("ascii")
-                        if linestr[0] != "F":
+                        if linestr[0] < "F":
                             conn.sendall(line)  # Echo back
                         self.station.serial.destination = linestr[0]
                         linestr = linestr[1:]
