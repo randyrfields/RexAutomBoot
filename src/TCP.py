@@ -94,10 +94,9 @@ class TCPEchoDaemon:
                             self.station.serial.cmdstr = linestr
                             self.scHandle.scSendCommand = True
                     else:
-                        # if scSendCMDResponse:
-                        #     conn.sendall(self.station.response)
-                        pass
-
+                        if self.station.serial.scSendCMDResponse:
+                            conn.sendall(self.station.response)
+                            self.station.serial.scSendCMDResponse = False
                         break
                     
                 except ConnectionResetError:
