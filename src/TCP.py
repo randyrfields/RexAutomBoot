@@ -61,8 +61,8 @@ class TCPEchoDaemon:
         """Handle a single client connection."""
         with conn:
             while self.running:
+                print(".")
                 try:
-                    print(".")
                     line = self.receive_line(conn, addr)
                     if line != None:
                         linestr = line.decode("ascii")
