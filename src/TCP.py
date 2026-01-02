@@ -96,6 +96,7 @@ class TCPEchoDaemon:
                     else:
                         if self.station.serial.scSendCMDResponse:
                             print("TCP Response Sent")
+                            print("Sent TCP=", self.station.response)
                             conn.sendall(self.station.response)
                             self.station.serial.scSendCMDResponse = False
                         break
