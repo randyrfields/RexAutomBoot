@@ -195,6 +195,7 @@ class serialPolling:
         if response is not None:
             dcdpkt = self.PktDecode(response)
             if self.destination == "F":
+                print("Setting Flag")
                 self.scSendCMDResponse = True
         else:
             dcdpkt = 1

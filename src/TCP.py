@@ -62,6 +62,7 @@ class TCPEchoDaemon:
         with conn:
             while self.running:
                 try:
+                    print(".")
                     line = self.receive_line(conn, addr)
                     if line != None:
                         linestr = line.decode("ascii")
