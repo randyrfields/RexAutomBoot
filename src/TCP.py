@@ -100,8 +100,6 @@ class TCPEchoDaemon:
                             print("Sent TCP=", self.station.response)
                             conn.sendall(self.station.response)
                             self.station.serial.scSendCMDResponse = False
-                        break
-                    
                 except ConnectionResetError:
                     break
                 except Exception as e:
