@@ -68,7 +68,7 @@ class ControlWindow:
         self.bottom_update_var = tk.IntVar()
         bottom_update_frame = tk.Frame(self.bottom_left)
         bottom_update_frame.pack(pady=20)
-        self.bottom_update_btn = tk.Button(bottom_update_frame, text="Update", width=10)
+        self.bottom_update_btn = tk.Button(bottom_update_frame, text="Update", command=self.scEraseFlash, width=10)
         self.bottom_update_btn.pack(side=tk.LEFT)
         self.bottom_update_cb = tk.Checkbutton(bottom_update_frame, text="Boot", variable=self.bottom_update_var,
                                                command=lambda: self.toggle_checkbox(self.bottom_update_var, 0, side="left_bottom"))
