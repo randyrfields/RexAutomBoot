@@ -13,6 +13,7 @@ class HandleSystemController:
     tfProgFlash = False
     scBootMode = False
     scMainMode = False
+    tfEraseFlash = False
     tfBootMode = False
     tfMainMode = False
 
