@@ -80,7 +80,7 @@ class ControlWindow:
         self.bottom_main_button = tk.Button(bottom_update_frame, text="Main", command=self.scMainMode, width=10)
         self.bottom_main_button.pack(anchor="w", padx=10, pady=5)
     
-    def scUpdate(self):
+    def scEraseFlash(self):
         print("SC Update button click")
         self.testVar = 1
         self.syshandle.scEraseFlash = True
