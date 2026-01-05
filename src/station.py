@@ -64,6 +64,18 @@ class Station:
         return result
 
 
+    async def sendscBootMode(self):
+        cmd = SysControlCommands.EXITMAIN
+        
+        try:
+            node = 0x0F
+            result = await self.serial.Poll(node, cmd.value)
+        except:
+            result = bytes([0xFF, 0xFF, 0xFF, 0xFF])
+
+        return result
+
+
     async def sendSCProgramData(self):
         cmd = SysControlCommands.SENDSCPROGRAMDATA
 

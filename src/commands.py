@@ -11,5 +11,6 @@ class SysControlCommands(Enum):
     RECEIVETFAPP = 21
     EXITBOOTLOADER = 22
     ERASEFLASH = 23
+    EXITMAIN = 24
 
 

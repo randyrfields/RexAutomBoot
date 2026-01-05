@@ -56,7 +56,7 @@ class ControlWindow:
         self.top_update_var = tk.IntVar()
         top_update_frame = tk.Frame(self.top_left)
         top_update_frame.pack(pady=5)
-        self.top_update_btn = tk.Button(top_update_frame, text="Update", command=self.scUpdate, width=10)
+        self.top_update_btn = tk.Button(top_update_frame, text="Update", width=10)
         self.top_update_btn.pack(side=tk.LEFT)
         self.top_update_cb = tk.Checkbutton(top_update_frame, text="Boot", variable=self.top_update_var,
                                             command=lambda: self.toggle_checkbox(self.top_update_var, 0, side="left_top"))
@@ -74,7 +74,7 @@ class ControlWindow:
                                                command=lambda: self.toggle_checkbox(self.bottom_update_var, 0, side="left_bottom"))
         self.bottom_update_cb.pack(side=tk.LEFT, padx=5)
         
-        self.bottom_boot_button = tk.Button(bottom_update_frame, text="Boot", width=10)
+        self.bottom_boot_button = tk.Button(bottom_update_frame, text="Boot", command=self.scBoot, width=10)
         self.bottom_boot_button.pack(anchor="w", padx=10, pady=(10, 5))
 
         self.bottom_main_button = tk.Button(bottom_update_frame, text="Main", width=10)
@@ -84,6 +84,11 @@ class ControlWindow:
         print("SC Update button click")
         self.testVar = 1
         self.syshandle.scEraseFlash = True
+
+    def scBootMode(self):
+        print("SC Boot button click")
+        self.testVar = 1
+        self.syshandle.scBootMode = True
 
     def startMain(self):
         subprocess.call(["python3", self.script_path, "arg1", "arg2"])
