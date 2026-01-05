@@ -65,7 +65,7 @@ class Station:
 
 
     async def sendscBootMode(self):
-        cmd = SysControlCommands.EXITMAIN
+        cmd = SysControlCommands.SCSTARTBOOT
         
         try:
             node = 0x0F
