@@ -77,7 +77,7 @@ class ControlWindow:
         self.bottom_boot_button = tk.Button(bottom_update_frame, text="Boot", command=self.scBootMode, width=10)
         self.bottom_boot_button.pack(anchor="w", padx=10, pady=(10, 5))
 
-        self.bottom_main_button = tk.Button(bottom_update_frame, text="Main", width=10)
+        self.bottom_main_button = tk.Button(bottom_update_frame, text="Main", command=self.scMainMode, width=10)
         self.bottom_main_button.pack(anchor="w", padx=10, pady=5)
     
     def scUpdate(self):
@@ -89,6 +89,11 @@ class ControlWindow:
         print("SC Boot button click")
         self.testVar = 1
         self.syshandle.scBootMode = True
+
+    def scMainMode(self):
+        print("SC Main button click")
+        self.testVar = 1
+        self.syshandle.scMainMode = True
 
     def startMain(self):
         subprocess.call(["python3", self.script_path, "arg1", "arg2"])

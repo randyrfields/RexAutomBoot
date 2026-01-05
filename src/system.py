@@ -12,6 +12,7 @@ class HandleSystemController:
     scSendCommand = False
     tfProgFlash = False
     scBootMode = False
+    scMainMode = False
 
     def __init__(self, gui, station):
         self.station = station
@@ -50,6 +51,9 @@ class HandleSystemController:
         elif self.scBootMode:
             await self.station.sendscBootMode()
             self.scBootMode = False
+        elif self.scMainMode:
+            await self.station.sendscMainMode()
+            self.scMainMode = False
         elif self.scProgFlash:
             await self.station.serial.scProgramFlash()
             self.scProgFlash = False
