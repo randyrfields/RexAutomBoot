@@ -52,8 +52,19 @@ class Station:
             self.mainWindow.terminal.addTextTerminal("System function reset fail.\n")
 
 
-    async def sendEraseFlash(self):
-        cmd = SysControlCommands.ERASEFLASH
+    async def sendSCEraseFlash(self):
+        cmd = SysControlCommands.SCERASEFLASH
+        
+        try:
+            node = 0x0F
+            result = await self.serial.Poll(node, cmd.value)
+        except:
+            result = bytes([0xFF, 0xFF, 0xFF, 0xFF])
+
+        return result
+
+    async def sendTFEraseFlash(self):
+        cmd = SysControlCommands.TFERASEFLASH
         
         try:
             node = 0x0F
@@ -86,6 +97,27 @@ class Station:
 
         return result
 
+    async def sendtfBootMode(self):
+        cmd = SysControlCommands.TFSTARTBOOT
+        
+        try:
+            node = 0x0F
+            result = await self.serial.Poll(node, cmd.value)
+        except:
+            result = bytes([0xFF, 0xFF, 0xFF, 0xFF])
+
+        return result
+
+    async def sendtfMainMode(self):
+        cmd = SysControlCommands.TFSTARTMAIN
+        
+        try:
+            node = 0x0F
+            result = await self.serial.Poll(node, cmd.value)
+        except:
+            result = bytes([0xFF, 0xFF, 0xFF, 0xFF])
+
+        return result
 
     async def sendSCProgramData(self):
         cmd = SysControlCommands.SENDSCPROGRAMDATA

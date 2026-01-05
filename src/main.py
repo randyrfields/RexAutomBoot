@@ -33,13 +33,19 @@ class ControlWindow:
         self.station_button = tk.Button(self.right_frame_label, text="Update", width=10)
         self.station_button.pack(pady=(20,10))
 
-        self.check_vars_right = []
-        for i in range(7):
-            var = tk.IntVar()
-            cb = tk.Checkbutton(self.right_frame_label, text="Boot", variable=var,
-                                command=lambda v=var, cb_index=i: self.toggle_checkbox(v, cb_index, side="right"))
-            cb.pack(anchor="center", pady=2)
-            self.check_vars_right.append((var, cb))
+        self.station_boot_button = tk.Button(self.right_frame_label, text="Boot", command=self.tfBootMode, width=10)
+        self.station_boot_button.pack(anchor="w", padx=10, pady=(10, 5))
+
+        self.station_main_button = tk.Button(self.right_frame_label, text="Main", command=self.tfMainMode, width=10)
+        self.station_main_button.pack(anchor="w", padx=10, pady=5)
+
+        # self.check_vars_right = []
+        # for i in range(7):
+        #     var = tk.IntVar()
+        #     cb = tk.Checkbutton(self.right_frame_label, text="Boot", variable=var,
+        #                         command=lambda v=var, cb_index=i: self.toggle_checkbox(v, cb_index, side="right"))
+        #     cb.pack(anchor="center", pady=2)
+        #     self.check_vars_right.append((var, cb))
 
         # --- Left Frame: Top and Bottom ---
         self.top_left = tk.LabelFrame(self.left_frame, text="Interface Controller")
@@ -94,6 +100,21 @@ class ControlWindow:
         print("SC Main button click")
         self.testVar = 1
         self.syshandle.scMainMode = True
+
+    def tfEraseFlash(self):
+        print("TF Update button click")
+        self.testVar = 1
+        self.syshandle.tfEraseFlash = True
+
+    def tfBootMode(self):
+        print("TF Boot button click")
+        self.testVar = 1
+        self.syshandle.tfBootMode = True
+
+    def tfMainMode(self):
+        print("TF Main button click")
+        self.testVar = 1
+        self.syshandle.tfMainMode = True
 
     def startMain(self):
         subprocess.call(["python3", self.script_path, "arg1", "arg2"])
