@@ -94,7 +94,6 @@ class TCPEchoDaemon:
                         else:
                             self.station.serial.cmdstr = linestr
                             self.scHandle.scSendCommand = True
-                    break
                     # else:
                     #     print("/")
                     #     if self.station.serial.scSendCMDResponse:
