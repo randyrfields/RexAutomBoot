@@ -74,7 +74,7 @@ class ControlWindow:
                                                command=lambda: self.toggle_checkbox(self.bottom_update_var, 0, side="left_bottom"))
         self.bottom_update_cb.pack(side=tk.LEFT, padx=5)
         
-        self.bottom_boot_button = tk.Button(bottom_update_frame, text="Boot", command=self.scBoot, width=10)
+        self.bottom_boot_button = tk.Button(bottom_update_frame, text="Boot", command=self.scBootMode, width=10)
         self.bottom_boot_button.pack(anchor="w", padx=10, pady=(10, 5))
 
         self.bottom_main_button = tk.Button(bottom_update_frame, text="Main", width=10)
