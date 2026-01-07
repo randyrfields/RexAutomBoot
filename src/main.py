@@ -30,7 +30,7 @@ class ControlWindow:
         self.right_frame_label = tk.LabelFrame(self.right_frame, text="Stations")
         self.right_frame_label.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
-        self.station_button = tk.Button(self.right_frame_label, text="Update", width=10)
+        self.station_button = tk.Button(self.right_frame_label, text="Update", command=self.tfEraseFlash, width=10)
         self.station_button.pack(pady=(20,10))
 
         self.station_boot_button = tk.Button(self.right_frame_label, text="Boot", command=self.tfBootMode, width=10)
@@ -104,7 +104,6 @@ class ControlWindow:
     def tfEraseFlash(self):
         print("TF Update button click")
         self.testVar = 1
-        self.syshandle.tfEraseFlash = True
 
     def tfBootMode(self):
         print("TF Boot button click")
