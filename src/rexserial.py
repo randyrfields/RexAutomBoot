@@ -153,6 +153,12 @@ class serialPolling:
             print("A")
             cmdlen = 3
             cmd.append(0x41)
+        elif (self.destination == "?"):
+            print("?")
+            cmdlen = 7
+            cmd.append(0x3F)
+            int_list = [ord(character) for character in self.cmdstr]
+            cmd = cmd + int_list
         elif (self.destination == "B"):
             print("B")
             cmdlen = 7
