@@ -71,9 +71,6 @@ class HandleSystemController:
         elif self.tfMainMode:
             await self.station.sendtfMainMode()
             self.tfMainMode = False
-        elif self.scProgFlash:
-            await self.station.serial.scProgramFlash()
-            self.scProgFlash = False
         elif self.scSendCommand:
             self.station.response = await self.station.serial.scSendCmd()
             self.scSendCommand = False
